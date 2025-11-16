@@ -1,0 +1,20 @@
+tickers:
+  - AAPL
+  - MSFT
+  - NVDA
+start: "2018-01-01"
+end: null   # uses today if null
+label:
+  horizon_days: 5
+  threshold: 0.0   # > threshold => class 1
+model:
+  type: "RandomForestClassifier"
+  params:
+    n_estimators: 300
+    max_depth: 6
+    min_samples_leaf: 5
+walkforward:
+  refit_every_days: 21   # approx monthly
+paper:
+  entry_prob: 0.55
+  exit_prob: 0.50
