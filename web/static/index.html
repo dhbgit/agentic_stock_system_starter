@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emerald Magnetar | Stock Predictions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-muted: #555566;
+            --accent-emerald: #10b981;
+            --accent-cyan: #06b6d4;
+            --accent-red: #ef4444;
+            --accent-amber: #f59e0b;
+            --glow-emerald: rgba(16, 185, 129, 0.15);
+            --glow-red: rgba(239, 68, 68, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: right;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .last-updated {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Prediction Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card.bullish::before {
+            background: var(--accent-emerald);
+        }
+
+        .card.bearish::before {
+            background: var(--accent-red);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card.bullish:hover {
+            box-shadow: 0 20px 40px var(--glow-emerald);
+        }
+
+        .card.bearish:hover {
+            box-shadow: 0 20px 40px var(--glow-red);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .ticker {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .signal-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .signal-badge.bullish {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+        }
+
+        .signal-badge.bearish {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+        }
+
+        .confidence-bar-container {
+            margin-bottom: 0.75rem;
+        }
+
+        .confidence-bar-bg {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .confidence-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .confidence-bar.bullish {
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+        }
+
+        .confidence-bar.bearish {
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .confidence-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .confidence-value.bullish {
+            color: var(--accent-emerald);
+        }
+
+        .confidence-value.bearish {
+            color: var(--accent-red);
+        }
+
+        .confidence-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .stock-name {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: right;
+            max-width: 160px;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        /* High confidence glow animation */
+        .card.high-confidence {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 30px var(--glow-emerald);
+            }
+        }
+
+        .card.bearish.high-confidence {
+            animation-name: pulse-red;
+        }
+
+        @keyframes pulse-red {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 30px var(--glow-red);
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-subtle);
+            border-top-color: var(--accent-emerald);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-stats {
+                gap: 1.5rem;
+            }
+
+            .main {
+                padding: 1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">◆</div>
+                <span class="logo-text">Emerald Magnetar</span>
+            </div>
+            <div class="header-stats">
+                <div class="stat">
+                    <div class="stat-value" id="bullish-count">-</div>
+                    <div class="stat-label">Bullish</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="bearish-count">-</div>
+                    <div class="stat-label">Bearish</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="avg-confidence">-</div>
+                    <div class="stat-label">Avg Confidence</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="section-header">
+            <h1 class="section-title">Next Day Trades</h1>
+            <span class="last-updated" id="last-updated">Loading...</span>
+        </div>
+
+        <div id="cards-container" class="cards-grid">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading predictions...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Stock metadata for display names (with exchange info)
+        const stockNames = {
+            // US Stocks - Trade on NYSE/NASDAQ
+            'AAPL': 'Apple · NASDAQ',
+            'MSFT': 'Microsoft · NASDAQ',
+            'GOOGL': 'Alphabet · NASDAQ',
+            'AMZN': 'Amazon · NASDAQ',
+            'META': 'Meta · NASDAQ',
+            'TSLA': 'Tesla · NASDAQ',
+            'NVDA': 'NVIDIA · NASDAQ',
+            'NFLX': 'Netflix · NASDAQ',
+            'AMD': 'AMD · NASDAQ',
+            'CRM': 'Salesforce · NYSE',
+            // US ETFs - Trade on NYSE Arca
+            'GLD': 'Gold ETF · NYSE',
+            'SLV': 'Silver ETF · NYSE',
+            'SPY': 'S&P 500 ETF · NYSE',
+            'QQQ': 'Nasdaq 100 ETF · NASDAQ',
+            'VTI': 'Total US Market · NYSE',
+            'IWM': 'Small Cap 2000 · NYSE',
+            'VOO': 'Vanguard S&P 500 · NYSE',
+            // Australian Stocks - Trade on ASX
+            'BHP.AX': 'BHP Mining · ASX',
+            'CBA.AX': 'CommBank · ASX',
+            'CSL.AX': 'CSL Biotech · ASX',
+            'NAB.AX': 'NAB Bank · ASX',
+            'WBC.AX': 'Westpac · ASX',
+            'ANZ.AX': 'ANZ Bank · ASX',
+            'WES.AX': 'Wesfarmers · ASX',
+            'WOW.AX': 'Woolworths · ASX',
+            'MQG.AX': 'Macquarie · ASX',
+            'RIO.AX': 'Rio Tinto · ASX',
+            'FMG.AX': 'Fortescue · ASX',
+            'TLS.AX': 'Telstra · ASX'
+        };
+
+        async function fetchPredictions() {
+            try {
+                const response = await fetch('/api/predictions');
+                const data = await response.json();
+                return data.predictions || [];
+            } catch (error) {
+                console.error('Failed to fetch predictions:', error);
+                return [];
+            }
+        }
+
+        function renderCards(predictions) {
+            const container = document.getElementById('cards-container');
+
+            if (!predictions.length) {
+                container.innerHTML = `
+                    <div class="loading">
+                        <p>No predictions available. Run the pipeline first.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by confidence (highest first)
+            predictions.sort((a, b) => b.confidence - a.confidence);
+
+            // FILTER: Only show high-confidence signals (>60%)
+            const MIN_CONFIDENCE = 0.60;
+            const topSignals = predictions.filter(p => p.confidence >= MIN_CONFIDENCE);
+
+            // Update stats (for filtered signals only)
+            const bullish = topSignals.filter(p => p.prediction === 1);
+            const bearish = topSignals.filter(p => p.prediction === 0);
+            const avgConf = topSignals.length > 0
+                ? topSignals.reduce((sum, p) => sum + p.confidence, 0) / topSignals.length
+                : 0;
+
+            document.getElementById('bullish-count').textContent = bullish.length;
+            document.getElementById('bearish-count').textContent = bearish.length;
+            document.getElementById('avg-confidence').textContent = avgConf > 0 ? (avgConf * 100).toFixed(0) + '%' : '-';
+
+            // Update date
+            if (predictions[0]?.created_at) {
+                const date = new Date(predictions[0].created_at);
+                document.getElementById('last-updated').textContent =
+                    'Predictions from ' + date.toLocaleDateString('en-AU', {
+                        weekday: 'long',
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+            }
+
+            // Render cards for TOP SIGNALS ONLY
+            if (topSignals.length === 0) {
+                container.innerHTML = `
+                    <div class="loading">
+                        <p>No high-confidence signals today. Check back after market close.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = topSignals.map(pred => {
+                const isBullish = pred.prediction === 1;
+                const signal = isBullish ? 'bullish' : 'bearish';
+                const confidence = pred.confidence;
+                const isHighConf = confidence >= 0.60;
+                const name = stockNames[pred.ticker] || pred.ticker;
+
+                return `
+                    <div class="card ${signal} ${isHighConf ? 'high-confidence' : ''}">
+                        <div class="card-header">
+                            <span class="ticker">${pred.ticker}</span>
+                            <span class="signal-badge ${signal}">${isBullish ? '↑ Long' : '↓ Short'}</span>
+                        </div>
+                        <div class="confidence-bar-container">
+                            <div class="confidence-bar-bg">
+                                <div class="confidence-bar ${signal}" style="width: ${confidence * 100}%"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <div class="confidence-value ${signal}">${(confidence * 100).toFixed(1)}%</div>
+                                <div class="confidence-label">Confidence</div>
+                            </div>
+                            <div class="stock-name">${name}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize
+        fetchPredictions().then(renderCards);
+
+        // Refresh every 60 seconds
+        setInterval(() => fetchPredictions().then(renderCards), 60000);
+    </script>
+</body>
+
+</html>

@@ -1,20 +1,49 @@
+# Stock Prediction Configuration
+
+# Tickers to track
 tickers:
   - AAPL
   - MSFT
+  - GOOGL
+  - AMZN
+  - META
+  - TSLA
   - NVDA
-start: "2018-01-01"
-end: null   # uses today if null
+  - AMD
+  - NFLX
+  - CRM
+  - SPY
+  - QQQ
+  - IWM
+  - VOO
+  - VTI
+  - GLD
+  - SLV
+  - BHP.AX
+  - CBA.AX
+  - CSL.AX
+  - WBC.AX
+  - NAB.AX
+  - ANZ.AX
+
+# FRED API Key
+# Get your own free API key at https://fred.stlouisfed.org/docs/api/api_key.html
+fred_api_key: "6704e1907a79067b1ecc78cbd776f9f7"
+
+# Macro series from FRED
+macro_series:
+  - "VIXCLS"
+  - "T10Y2Y"
+  - "USEPUINDXD"
+
+# Labeling 
 label:
-  horizon_days: 5
-  threshold: 0.0   # > threshold => class 1
-model:
-  type: "RandomForestClassifier"
-  params:
-    n_estimators: 300
-    max_depth: 6
-    min_samples_leaf: 5
+  horizon_days: 1
+
+# Walk-forward settings
 walkforward:
-  refit_every_days: 21   # approx monthly
-paper:
-  entry_prob: 0.55
-  exit_prob: 0.50
+  refit_every_days: 21
+
+# Date range
+start: "2004-01-01"
+end: null

@@ -56,3 +56,12 @@ def merge_macro(price_df: pd.DataFrame, macro_dict: dict[str, pd.DataFrame]) -> 
         out = out.merge(m.rename(columns={"macro_value": name}), on="date", how="left")
     out = out.set_index("date").fillna(method="ffill")
     return out
+
+def load_vix(start: str, end: str | None = None) -> pd.DataFrame:
+    """
+    Load VIX data from yfinance.
+    """
+    vix = load_prices("^VIX", start, end)
+    vix = vix.rename(columns={"adj_close": "vix_close"})
+    return vix[["vix_close"]]
+

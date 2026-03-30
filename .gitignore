@@ -1,0 +1,27 @@
+# Virtual environment
+.venv-3.11/
+.venv/
+env/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+.tox/
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+artifacts/*.db
+artifacts/*.csv
+logs/
+*.log
