@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "yfinance": {
+      "command": "uvx",
+      "args": [
+        "yfinance-mcp"
+      ]
+    }
+  }
+}

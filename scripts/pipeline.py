@@ -57,7 +57,7 @@ def load_config():
 
 
 def model_cache_path(ticker: str) -> Path:
-    return MODEL_DIR / f"{ticker}_rf.pkl"
+    return MODEL_DIR / f"{ticker}_ensemble.pkl"
 
 
 def cache_is_stale(path: Path, max_age_days: int) -> bool:
@@ -180,7 +180,6 @@ def main():
                 ticker,
                 start=args.start,
                 end=args.end,
-                model_type=args.model,
                 model_params=model_params,
                 label_horizon=horizon,
                 refit_every_days=refit,

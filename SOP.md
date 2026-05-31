@@ -95,3 +95,47 @@ python scripts/refresh_metadata.py
 
 **Rule of Thumb:**
 Use the AI to find the *opportunity* (screen 50 stocks down to 3), but use your brain to check for *disasters*. If a stock is in the news for bad reasons, ignore the Green Light.
+
+---
+
+### 8. Signal Intelligence — The "Bloomberg" Reading
+
+The tactical table shows three key intelligence columns. These are "derived features" calculated from your historical `preds` table—no extra ML weight.
+
+| Logic | Professional Interpretation |
+|---|---|
+| **Streak** | consecutive sessions with the same call. 🔥 8d = Bullish regime. ❄ 8d = Bearish. |
+| **Trend** | Today's confidence vs the **10-day institutional baseline**. ↑ Rising = conviction is building. |
+| **10d Average** | The "Fortnightly Anchor." Used to filter out daily noise and see structural trend shifts. |
+
+**The 10-Day Rule:**
+In a professional terminal environment, a 5-day window is often too "jittery." By using a **10-day average** (two trading weeks), we anchor our trend indicator to a more stable base. 
+
+- **🔥 ≥ 5d streak + ↑ 10d trend** = Institutional conviction. High priority.
+- **Any streak + ↓ 10d trend** = The "Fading Signal." The model is still calling the direction but its *certainty* is dropping. Be defensive.
+
+---
+
+### 9. Why the 10-Session Baseline? (Institutional Strategy)
+
+We moved from a 5-session to a **10-session baseline** to achieve a "Poor Man's Bloomberg" depth. Here is the strategic rationale:
+
+#### 10-Session Baseline (The Standard)
+- **Filters Noise**: A single "noisy" market day only carries 10% weight in the average (vs 20% in a 5-day window).
+- **Regime Detection**: 10 days captures two full trading cycles (Weekly Close → Weekly Open). If the trend is rising over 10 days, it’s a structural shift, not a fluke.
+- **Stability**: Prevents the "Trend" indicator from flipping red/green every other day, which reduces overtrading and emotional decision-making.
+
+**Verdict:** For a professional scanner, **10 sessions is the correct anchor.** It forces you to stay patient until the model shows prolonged, stable conviction.
+
+---
+
+### 10. Disclaimers & Safety
+
+1.  **Technical Sniper**: The model sees Price and Volume. It does **not** see the news.
+2.  **The Human Filter**: If the model says "LONG" but the company is in a legal scandal, you **SKIP**.
+3.  **Paper First**: Always verify these signals in a demo account for 20 sessions before committing real capital.
+
+3.  **Decision:** **SKIP IT.**
+
+**Rule of Thumb:**
+Use the AI to find the *opportunity* (screen 50 stocks down to 3), but use your brain to check for *disasters*. If a stock is in the news for bad reasons, ignore the Green Light.

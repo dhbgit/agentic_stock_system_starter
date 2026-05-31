@@ -3,657 +3,495 @@
     "name": "Apple Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 274.11,
-    "target_bull": 287.82,
-    "target_bear": 260.4,
-    "fetched_at": "2025-12-16 22:30:45"
+    "price": 255.92,
+    "target_bull": 268.72,
+    "target_bear": 243.12,
+    "fetched_at": "2026-04-03 12:56:28"
   },
   "ABBV": {
     "name": "AbbVie Inc.",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 227.45,
-    "target_bull": 238.82,
-    "target_bear": 216.08,
-    "fetched_at": "2025-12-16 22:30:46"
-  },
-  "ADBE": {
-    "name": "Adobe Inc.",
-    "exchange": "NASDAQ Global Select",
-    "currency": "USD",
-    "price": 351.15,
-    "target_bull": 368.71,
-    "target_bear": 333.59,
-    "fetched_at": "2025-12-16 22:30:47"
+    "price": 208.84,
+    "target_bull": 219.28,
+    "target_bear": 198.4,
+    "fetched_at": "2026-04-03 12:56:28"
   },
   "AMD": {
     "name": "Advanced Micro Devices, Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 207.58,
-    "target_bull": 217.96,
-    "target_bear": 197.2,
-    "fetched_at": "2025-12-16 22:30:48"
+    "price": 217.5,
+    "target_bull": 228.38,
+    "target_bear": 206.62,
+    "fetched_at": "2026-04-03 12:56:28"
   },
   "AMZN": {
     "name": "Amazon.com, Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 222.54,
-    "target_bull": 233.67,
-    "target_bear": 211.41,
-    "fetched_at": "2025-12-16 22:30:49"
+    "price": 209.77,
+    "target_bull": 220.26,
+    "target_bear": 199.28,
+    "fetched_at": "2026-04-03 12:56:29"
   },
   "ANZ.AX": {
     "name": "ANZ Group Holdings Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 36.11,
-    "target_bull": 37.92,
-    "target_bear": 34.3,
-    "fetched_at": "2025-12-16 22:30:50"
-  },
-  "ARKK": {
-    "name": "ARK Innovation ETF",
-    "exchange": "BTS",
-    "currency": "USD",
-    "price": 79.21,
-    "target_bull": 83.17,
-    "target_bear": 75.25,
-    "fetched_at": "2025-12-16 22:30:51"
+    "price": 36.63,
+    "target_bull": 38.46,
+    "target_bear": 34.8,
+    "fetched_at": "2026-04-03 12:56:29"
   },
   "AVGO": {
     "name": "Broadcom Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 339.81,
-    "target_bull": 356.8,
-    "target_bear": 322.82,
-    "fetched_at": "2025-12-16 22:30:52"
-  },
-  "BABA": {
-    "name": "Alibaba Group Holding Limited",
-    "exchange": "New York Stock Exchange (NYSE)",
-    "currency": "USD",
-    "price": 150.09,
-    "target_bull": 157.59,
-    "target_bear": 142.59,
-    "fetched_at": "2025-12-16 22:30:53"
+    "price": 314.55,
+    "target_bull": 330.28,
+    "target_bear": 298.82,
+    "fetched_at": "2026-04-03 12:56:30"
   },
   "BHP.AX": {
     "name": "BHP Group Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 44.24,
-    "target_bull": 46.45,
-    "target_bear": 42.03,
-    "fetched_at": "2025-12-16 22:30:54"
+    "price": 51.23,
+    "target_bull": 53.79,
+    "target_bear": 48.67,
+    "fetched_at": "2026-04-03 12:56:30"
   },
   "BRK-B": {
     "name": "Berkshire Hathaway Inc.",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 506.38,
-    "target_bull": 531.7,
-    "target_bear": 481.06,
-    "fetched_at": "2025-12-16 22:30:56"
+    "price": 477.35,
+    "target_bull": 501.22,
+    "target_bear": 453.48,
+    "fetched_at": "2026-04-03 12:56:30"
   },
   "CBA.AX": {
     "name": "Commonwealth Bank of Australia",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 155.13,
-    "target_bull": 162.89,
-    "target_bear": 147.37,
-    "fetched_at": "2025-12-16 22:30:57"
+    "price": 172.8,
+    "target_bull": 181.44,
+    "target_bear": 164.16,
+    "fetched_at": "2026-04-03 12:56:31"
   },
   "COST": {
     "name": "Costco Wholesale Corporation",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 860.56,
-    "target_bull": 903.59,
-    "target_bear": 817.53,
-    "fetched_at": "2025-12-16 22:30:58"
+    "price": 1014.96,
+    "target_bull": 1065.71,
+    "target_bear": 964.21,
+    "fetched_at": "2026-04-03 12:56:31"
   },
   "CRM": {
     "name": "Salesforce, Inc.",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 254.58,
-    "target_bull": 267.31,
-    "target_bear": 241.85,
-    "fetched_at": "2025-12-16 22:30:59"
+    "price": 187.18,
+    "target_bull": 196.54,
+    "target_bear": 177.82,
+    "fetched_at": "2026-04-03 12:56:31"
   },
   "CSL.AX": {
     "name": "CSL Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 177.15,
-    "target_bull": 186.01,
-    "target_bear": 168.29,
-    "fetched_at": "2025-12-16 22:31:00"
+    "price": 138.93,
+    "target_bull": 145.88,
+    "target_bear": 131.98,
+    "fetched_at": "2026-04-03 12:56:32"
   },
   "CVX": {
     "name": "Chevron Corporation",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 149.8,
-    "target_bull": 157.29,
-    "target_bear": 142.31,
-    "fetched_at": "2025-12-16 22:31:01"
-  },
-  "DIA": {
-    "name": "SPDR Dow Jones Industrial Average ETF Trust",
-    "exchange": "NYSE Arca (ETF Exchange)",
-    "currency": "USD",
-    "price": 485.17,
-    "target_bull": 509.43,
-    "target_bear": 460.91,
-    "fetched_at": "2025-12-16 22:31:02"
+    "price": 198.97,
+    "target_bull": 208.92,
+    "target_bear": 189.02,
+    "fetched_at": "2026-04-03 12:56:32"
   },
   "DIS": {
     "name": "The Walt Disney Company",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 110.49,
-    "target_bull": 116.01,
-    "target_bear": 104.97,
-    "fetched_at": "2025-12-16 22:31:03"
+    "price": 96.61,
+    "target_bull": 101.44,
+    "target_bear": 91.78,
+    "fetched_at": "2026-04-03 12:56:33"
   },
   "EFA": {
     "name": "iShares MSCI EAFE ETF",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 97.09,
-    "target_bull": 101.94,
-    "target_bear": 92.24,
-    "fetched_at": "2025-12-16 22:31:04"
+    "price": 98.0,
+    "target_bull": 102.9,
+    "target_bear": 93.1,
+    "fetched_at": "2026-04-03 12:56:33"
   },
   "FMG.AX": {
     "name": "Fortescue Ltd",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 22.1,
-    "target_bull": 23.21,
-    "target_bear": 21.0,
-    "fetched_at": "2025-12-16 22:31:06"
+    "price": 20.25,
+    "target_bull": 21.26,
+    "target_bear": 19.24,
+    "fetched_at": "2026-04-03 12:56:34"
   },
   "GLD": {
     "name": "SPDR Gold Shares",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 395.8,
-    "target_bull": 415.59,
-    "target_bear": 376.01,
-    "fetched_at": "2025-12-16 22:31:07"
-  },
-  "GMG.AX": {
-    "name": "Goodman Group",
-    "exchange": "Australian Securities Exchange (ASX)",
-    "currency": "AUD",
-    "price": 29.44,
-    "target_bull": 30.91,
-    "target_bear": 27.97,
-    "fetched_at": "2025-12-16 22:31:09"
+    "price": 429.41,
+    "target_bull": 450.88,
+    "target_bear": 407.94,
+    "fetched_at": "2026-04-03 12:56:34"
   },
   "GOOGL": {
     "name": "Alphabet Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 308.22,
-    "target_bull": 323.63,
-    "target_bear": 292.81,
-    "fetched_at": "2025-12-16 22:31:10"
+    "price": 295.77,
+    "target_bull": 310.56,
+    "target_bear": 280.98,
+    "fetched_at": "2026-04-03 12:56:34"
   },
   "HD": {
     "name": "The Home Depot, Inc.",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 356.99,
-    "target_bull": 374.84,
-    "target_bear": 339.14,
-    "fetched_at": "2025-12-16 22:31:10"
-  },
-  "INTC": {
-    "name": "Intel Corporation",
-    "exchange": "NASDAQ Global Select",
-    "currency": "USD",
-    "price": 37.51,
-    "target_bull": 39.39,
-    "target_bear": 35.63,
-    "fetched_at": "2025-12-16 22:31:12"
+    "price": 321.63,
+    "target_bull": 337.71,
+    "target_bear": 305.55,
+    "fetched_at": "2026-04-03 12:56:35"
   },
   "IWM": {
     "name": "iShares Russell 2000 ETF",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 251.93,
-    "target_bull": 264.53,
-    "target_bear": 239.33,
-    "fetched_at": "2025-12-16 22:31:13"
-  },
-  "JD": {
-    "name": "JD.com, Inc.",
-    "exchange": "NASDAQ Global Select",
-    "currency": "USD",
-    "price": 28.85,
-    "target_bull": 30.29,
-    "target_bear": 27.41,
-    "fetched_at": "2025-12-16 22:31:14"
+    "price": 251.29,
+    "target_bull": 263.85,
+    "target_bear": 238.73,
+    "fetched_at": "2026-04-03 12:56:35"
   },
   "JNJ": {
     "name": "Johnson & Johnson",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 214.17,
-    "target_bull": 224.88,
-    "target_bear": 203.46,
-    "fetched_at": "2025-12-16 22:31:15"
+    "price": 243.04,
+    "target_bull": 255.19,
+    "target_bear": 230.89,
+    "fetched_at": "2026-04-03 12:56:36"
   },
   "JPM": {
     "name": "JPMorgan Chase & Co.",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 320.02,
-    "target_bull": 336.02,
-    "target_bear": 304.02,
-    "fetched_at": "2025-12-16 22:31:16"
+    "price": 294.6,
+    "target_bull": 309.33,
+    "target_bear": 279.87,
+    "fetched_at": "2026-04-03 12:56:36"
   },
   "KO": {
     "name": "The Coca-Cola Company",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 70.97,
-    "target_bull": 74.52,
-    "target_bear": 67.42,
-    "fetched_at": "2025-12-16 22:31:17"
+    "price": 76.72,
+    "target_bull": 80.56,
+    "target_bear": 72.88,
+    "fetched_at": "2026-04-03 12:56:36"
   },
   "MA": {
     "name": "Mastercard Incorporated",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 569.13,
-    "target_bull": 597.59,
-    "target_bear": 540.67,
-    "fetched_at": "2025-12-16 22:31:18"
+    "price": 493.44,
+    "target_bull": 518.11,
+    "target_bear": 468.77,
+    "fetched_at": "2026-04-03 12:56:37"
   },
   "META": {
     "name": "Meta Platforms, Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 647.51,
-    "target_bull": 679.89,
-    "target_bear": 615.13,
-    "fetched_at": "2025-12-16 22:31:19"
+    "price": 574.46,
+    "target_bull": 603.18,
+    "target_bear": 545.74,
+    "fetched_at": "2026-04-03 12:56:37"
   },
   "MQG.AX": {
     "name": "Macquarie Group Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 200.65,
-    "target_bull": 210.68,
-    "target_bear": 190.62,
-    "fetched_at": "2025-12-16 22:31:21"
+    "price": 205.59,
+    "target_bull": 215.87,
+    "target_bear": 195.31,
+    "fetched_at": "2026-04-03 12:56:37"
   },
   "MRK": {
     "name": "Merck & Co., Inc.",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 100.26,
-    "target_bull": 105.27,
-    "target_bear": 95.25,
-    "fetched_at": "2025-12-16 22:31:22"
+    "price": 120.87,
+    "target_bull": 126.91,
+    "target_bear": 114.83,
+    "fetched_at": "2026-04-03 12:56:38"
   },
   "MSFT": {
     "name": "Microsoft Corporation",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 474.82,
-    "target_bull": 498.56,
-    "target_bear": 451.08,
-    "fetched_at": "2025-12-16 22:31:23"
-  },
-  "MU": {
-    "name": "Micron Technology, Inc.",
-    "exchange": "NASDAQ Global Select",
-    "currency": "USD",
-    "price": 237.5,
-    "target_bull": 249.38,
-    "target_bear": 225.62,
-    "fetched_at": "2025-12-16 22:31:24"
+    "price": 373.46,
+    "target_bull": 392.13,
+    "target_bear": 354.79,
+    "fetched_at": "2026-04-03 12:56:38"
   },
   "NAB.AX": {
     "name": "National Australia Bank Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 42.24,
-    "target_bull": 44.35,
-    "target_bear": 40.13,
-    "fetched_at": "2025-12-16 22:31:25"
+    "price": 41.8,
+    "target_bull": 43.89,
+    "target_bear": 39.71,
+    "fetched_at": "2026-04-03 12:56:38"
   },
   "NFLX": {
     "name": "Netflix, Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 93.77,
-    "target_bull": 98.46,
-    "target_bear": 89.08,
-    "fetched_at": "2025-12-16 22:31:26"
+    "price": 98.66,
+    "target_bull": 103.59,
+    "target_bear": 93.73,
+    "fetched_at": "2026-04-03 12:56:39"
   },
   "NVDA": {
     "name": "NVIDIA Corporation",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 176.29,
-    "target_bull": 185.1,
-    "target_bear": 167.48,
-    "fetched_at": "2025-12-16 22:31:27"
-  },
-  "ORCL": {
-    "name": "Oracle Corporation",
-    "exchange": "New York Stock Exchange (NYSE)",
-    "currency": "USD",
-    "price": 184.92,
-    "target_bull": 194.17,
-    "target_bear": 175.67,
-    "fetched_at": "2025-12-16 22:31:28"
-  },
-  "PDD": {
-    "name": "PDD Holdings Inc.",
-    "exchange": "NASDAQ Global Select",
-    "currency": "USD",
-    "price": 110.4,
-    "target_bull": 115.92,
-    "target_bear": 104.88,
-    "fetched_at": "2025-12-16 22:31:30"
+    "price": 177.39,
+    "target_bull": 186.26,
+    "target_bear": 168.52,
+    "fetched_at": "2026-04-03 12:56:39"
   },
   "PEP": {
     "name": "PepsiCo, Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 151.22,
-    "target_bull": 158.78,
-    "target_bear": 143.66,
-    "fetched_at": "2025-12-16 22:31:31"
+    "price": 157.01,
+    "target_bull": 164.86,
+    "target_bear": 149.16,
+    "fetched_at": "2026-04-03 12:56:40"
   },
   "PG": {
     "name": "The Procter & Gamble Company",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 145.13,
-    "target_bull": 152.39,
-    "target_bear": 137.87,
-    "fetched_at": "2025-12-16 22:31:32"
-  },
-  "QCOM": {
-    "name": "QUALCOMM Incorporated",
-    "exchange": "NASDAQ Global Select",
-    "currency": "USD",
-    "price": 179.26,
-    "target_bull": 188.22,
-    "target_bear": 170.3,
-    "fetched_at": "2025-12-16 22:31:33"
+    "price": 143.12,
+    "target_bull": 150.28,
+    "target_bear": 135.96,
+    "fetched_at": "2026-04-03 12:56:40"
   },
   "QQQ": {
     "name": "Invesco QQQ Trust",
     "exchange": "NASDAQ Global Market",
     "currency": "USD",
-    "price": 610.54,
-    "target_bull": 641.07,
-    "target_bear": 580.01,
-    "fetched_at": "2025-12-16 22:31:35"
+    "price": 584.98,
+    "target_bull": 614.23,
+    "target_bear": 555.73,
+    "fetched_at": "2026-04-03 12:56:40"
   },
   "RIO.AX": {
     "name": "Rio Tinto Group",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 140.3,
-    "target_bull": 147.32,
-    "target_bear": 133.28,
-    "fetched_at": "2025-12-16 22:31:36"
-  },
-  "SHOP": {
-    "name": "Shopify Inc.",
-    "exchange": "NASDAQ Global Select",
-    "currency": "USD",
-    "price": 159.85,
-    "target_bull": 167.84,
-    "target_bear": 151.86,
-    "fetched_at": "2025-12-16 22:31:37"
+    "price": 161.62,
+    "target_bull": 169.7,
+    "target_bear": 153.54,
+    "fetched_at": "2026-04-03 12:56:41"
   },
   "SLV": {
     "name": "iShares Silver Trust",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 58.11,
-    "target_bull": 61.02,
-    "target_bear": 55.2,
-    "fetched_at": "2025-12-16 22:31:38"
-  },
-  "SMH": {
-    "name": "VanEck Semiconductor ETF",
-    "exchange": "NASDAQ Global Market",
-    "currency": "USD",
-    "price": 352.9,
-    "target_bull": 370.55,
-    "target_bear": 335.25,
-    "fetched_at": "2025-12-16 22:31:39"
+    "price": 65.79,
+    "target_bull": 69.08,
+    "target_bear": 62.5,
+    "fetched_at": "2026-04-03 12:56:41"
   },
   "SPY": {
-    "name": "SPDR S&P 500 ETF",
+    "name": "State Street SPDR S&P 500 ETF Trust",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 680.73,
-    "target_bull": 714.77,
-    "target_bear": 646.69,
-    "fetched_at": "2025-12-16 22:31:40"
-  },
-  "STO.AX": {
-    "name": "Santos Limited",
-    "exchange": "Australian Securities Exchange (ASX)",
-    "currency": "AUD",
-    "price": 6.11,
-    "target_bull": 6.42,
-    "target_bear": 5.8,
-    "fetched_at": "2025-12-16 22:31:41"
+    "price": 655.83,
+    "target_bull": 688.62,
+    "target_bear": 623.04,
+    "fetched_at": "2026-04-03 12:56:42"
   },
   "TLS.AX": {
     "name": "Telstra Group Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 4.81,
-    "target_bull": 5.05,
-    "target_bear": 4.57,
-    "fetched_at": "2025-12-16 22:31:42"
+    "price": 5.42,
+    "target_bull": 5.69,
+    "target_bear": 5.15,
+    "fetched_at": "2026-04-03 12:56:42"
   },
   "TLT": {
     "name": "iShares 20+ Year Treasury Bond ETF",
     "exchange": "NASDAQ Global Market",
     "currency": "USD",
-    "price": 87.4,
-    "target_bull": 91.77,
-    "target_bear": 83.03,
-    "fetched_at": "2025-12-16 22:31:43"
+    "price": 86.79,
+    "target_bull": 91.13,
+    "target_bear": 82.45,
+    "fetched_at": "2026-04-03 12:56:42"
   },
   "TSLA": {
     "name": "Tesla, Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 475.31,
-    "target_bull": 499.08,
-    "target_bear": 451.54,
-    "fetched_at": "2025-12-16 22:31:44"
-  },
-  "TSM": {
-    "name": "Taiwan Semiconductor Manufacturing Company Limited",
-    "exchange": "New York Stock Exchange (NYSE)",
-    "currency": "USD",
-    "price": 287.74,
-    "target_bull": 302.13,
-    "target_bear": 273.35,
-    "fetched_at": "2025-12-16 22:31:45"
+    "price": 360.59,
+    "target_bull": 378.62,
+    "target_bear": 342.56,
+    "fetched_at": "2026-04-03 12:56:43"
   },
   "UNH": {
     "name": "UnitedHealth Group Incorporated",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 341.1,
-    "target_bull": 358.16,
-    "target_bear": 324.05,
-    "fetched_at": "2025-12-16 22:31:46"
-  },
-  "USO": {
-    "name": "United States Oil Fund, LP",
-    "exchange": "NYSE Arca (ETF Exchange)",
-    "currency": "USD",
-    "price": 67.89,
-    "target_bull": 71.28,
-    "target_bear": 64.5,
-    "fetched_at": "2025-12-16 22:31:48"
+    "price": 277.26,
+    "target_bull": 291.12,
+    "target_bear": 263.4,
+    "fetched_at": "2026-04-03 12:56:43"
   },
   "V": {
     "name": "Visa Inc.",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 346.89,
-    "target_bull": 364.23,
-    "target_bear": 329.55,
-    "fetched_at": "2025-12-16 22:31:49"
+    "price": 300.8,
+    "target_bull": 315.84,
+    "target_bear": 285.76,
+    "fetched_at": "2026-04-03 12:56:43"
   },
   "VEA": {
     "name": "Vanguard FTSE Developed Markets Index Fund ETF Shares",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 62.84,
-    "target_bull": 65.98,
-    "target_bear": 59.7,
-    "fetched_at": "2025-12-16 22:31:50"
+    "price": 64.64,
+    "target_bull": 67.87,
+    "target_bear": 61.41,
+    "fetched_at": "2026-04-03 12:56:44"
   },
   "VNQ": {
     "name": "Vanguard Real Estate Index Fund ETF Shares",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 89.73,
-    "target_bull": 94.22,
-    "target_bear": 85.24,
-    "fetched_at": "2025-12-16 22:31:51"
+    "price": 90.23,
+    "target_bull": 94.74,
+    "target_bear": 85.72,
+    "fetched_at": "2026-04-03 12:56:44"
   },
   "VOO": {
     "name": "Vanguard S&P 500 ETF",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 625.96,
-    "target_bull": 657.26,
-    "target_bear": 594.66,
-    "fetched_at": "2025-12-16 22:31:52"
+    "price": 602.99,
+    "target_bull": 633.14,
+    "target_bear": 572.84,
+    "fetched_at": "2026-04-03 12:56:44"
   },
   "VTI": {
     "name": "Vanguard Total Stock Market Index Fund ETF Shares",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 335.33,
-    "target_bull": 352.1,
-    "target_bear": 318.56,
-    "fetched_at": "2025-12-16 22:31:53"
+    "price": 323.76,
+    "target_bull": 339.95,
+    "target_bear": 307.57,
+    "fetched_at": "2026-04-03 12:56:45"
   },
   "VWO": {
     "name": "Vanguard Emerging Markets Stock Index Fund",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 53.78,
-    "target_bull": 56.47,
-    "target_bear": 51.09,
-    "fetched_at": "2025-12-16 22:31:54"
+    "price": 53.82,
+    "target_bull": 56.51,
+    "target_bear": 51.13,
+    "fetched_at": "2026-04-03 12:56:46"
   },
   "WBC.AX": {
     "name": "Westpac Banking Corporation",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 38.48,
-    "target_bull": 40.4,
-    "target_bear": 36.56,
-    "fetched_at": "2025-12-16 22:31:55"
-  },
-  "WDS.AX": {
-    "name": "Woodside Energy Group Ltd",
-    "exchange": "Australian Securities Exchange (ASX)",
-    "currency": "AUD",
-    "price": 23.99,
-    "target_bull": 25.19,
-    "target_bear": 22.79,
-    "fetched_at": "2025-12-16 22:31:56"
+    "price": 39.85,
+    "target_bull": 41.84,
+    "target_bear": 37.86,
+    "fetched_at": "2026-04-03 12:56:46"
   },
   "WES.AX": {
     "name": "Wesfarmers Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 80.72,
-    "target_bull": 84.76,
-    "target_bear": 76.68,
-    "fetched_at": "2025-12-16 22:31:57"
+    "price": 73.34,
+    "target_bull": 77.01,
+    "target_bear": 69.67,
+    "fetched_at": "2026-04-03 12:56:46"
   },
   "WMT": {
     "name": "Walmart Inc.",
     "exchange": "NASDAQ Global Select",
     "currency": "USD",
-    "price": 116.79,
-    "target_bull": 122.63,
-    "target_bear": 110.95,
-    "fetched_at": "2025-12-16 22:31:58"
+    "price": 125.79,
+    "target_bull": 132.08,
+    "target_bear": 119.5,
+    "fetched_at": "2026-04-03 12:56:47"
   },
   "WOW.AX": {
     "name": "Woolworths Group Limited",
     "exchange": "Australian Securities Exchange (ASX)",
     "currency": "AUD",
-    "price": 29.37,
-    "target_bull": 30.84,
-    "target_bear": 27.9,
-    "fetched_at": "2025-12-16 22:31:59"
+    "price": 37.01,
+    "target_bull": 38.86,
+    "target_bear": 35.16,
+    "fetched_at": "2026-04-03 12:56:47"
   },
   "XLE": {
     "name": "State Street Energy Select Sector SPDR ETF",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 45.19,
-    "target_bull": 47.45,
-    "target_bear": 42.93,
-    "fetched_at": "2025-12-16 22:32:00"
+    "price": 59.25,
+    "target_bull": 62.21,
+    "target_bear": 56.29,
+    "fetched_at": "2026-04-03 12:56:47"
   },
   "XLF": {
     "name": "State Street Financial Select Sector SPDR ETF",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 54.99,
-    "target_bull": 57.74,
-    "target_bear": 52.24,
-    "fetched_at": "2025-12-16 22:32:01"
+    "price": 49.53,
+    "target_bull": 52.01,
+    "target_bear": 47.05,
+    "fetched_at": "2026-04-03 12:56:48"
   },
   "XLK": {
     "name": "State Street Technology Select Sector SPDR ETF",
     "exchange": "NYSE Arca (ETF Exchange)",
     "currency": "USD",
-    "price": 142.3,
-    "target_bull": 149.42,
-    "target_bear": 135.19,
-    "fetched_at": "2025-12-16 22:32:02"
-  },
-  "XLV": {
-    "name": "State Street Health Care Select Sector SPDR ETF",
-    "exchange": "NYSE Arca (ETF Exchange)",
-    "currency": "USD",
-    "price": 156.1,
-    "target_bull": 163.91,
-    "target_bear": 148.29,
-    "fetched_at": "2025-12-16 22:32:04"
+    "price": 135.99,
+    "target_bull": 142.79,
+    "target_bear": 129.19,
+    "fetched_at": "2026-04-03 12:56:48"
   },
   "XOM": {
     "name": "Exxon Mobil Corporation",
     "exchange": "New York Stock Exchange (NYSE)",
     "currency": "USD",
-    "price": 117.76,
-    "target_bull": 123.65,
-    "target_bear": 111.87,
-    "fetched_at": "2025-12-16 22:32:05"
+    "price": 160.69,
+    "target_bull": 168.72,
+    "target_bear": 152.66,
+    "fetched_at": "2026-04-03 12:56:49"
   }
 }

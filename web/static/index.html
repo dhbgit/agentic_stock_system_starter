@@ -4,537 +4,637 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emerald Magnetar | Stock Predictions</title>
+    <title>Emerald Magnetar | Signal Dashboard</title>
+    <meta name="description" content="Emerald Magnetar — daily stock signal scanner with ML confidence scoring.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
+        /* ── Tokens ───────────────────────────────────────────────── */
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --text-primary: #f0f0f5;
-            --text-secondary: #8888a0;
-            --text-muted: #555566;
-            --accent-emerald: #10b981;
-            --accent-cyan: #06b6d4;
-            --accent-red: #ef4444;
-            --accent-amber: #f59e0b;
-            --glow-emerald: rgba(16, 185, 129, 0.15);
-            --glow-red: rgba(239, 68, 68, 0.15);
+            --page:     #f7f6f3;
+            --surface:  #ffffff;
+            --border:   #e6e3de;
+            --stripe:   #faf9f7;
+
+            --ink:      #18170f;
+            --ink-2:    #6a6860;
+            --ink-3:    #a8a59e;
+            --ink-4:    #d0cdc7;
+
+            --green:    #0a6b30;
+            --green-bg: #eef8f2;
+            --green-bd: #9ed4b4;
+
+            --red:      #ad1a1a;
+            --red-bg:   #fdf2f2;
+            --red-bd:   #edaaaa;
+
+            --amber:    #7a4c00;
+            --amber-bg: #fdf6e4;
+            --amber-bd: #e8c560;
+
+            --navy:     #0d2140;
+            --mono:    'JetBrains Mono', monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --page:     #0c0d12;
+                --surface:  #14151a;
+                --border:   #272932;
+                --stripe:   #1a1b22;
+
+                --ink:      #eaebee;
+                --ink-2:    #a1a5b1;
+                --ink-3:    #6f7481;
+                --ink-4:    #4a4f5b;
+
+                --green:    #4ade80;
+                --green-bg: #063d27;
+                --green-bd: #0f764a;
+
+                --red:      #f87171;
+                --red-bg:   #5b1414;
+                --red-bd:   #a32a2a;
+
+                --amber:    #facc15;
+                --amber-bg: #5c3504;
+                --amber-bd: #a46403;
+
+                --navy:     #93c5fd;
+            }
+            .brand-gem {
+                background: var(--navy);
+                color: #0c0d12;
+            }
         }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-font-smoothing: antialiased; color-scheme: light dark; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--page);
+            color: var(--ink);
             min-height: 100vh;
-            line-height: 1.6;
+            font-size: 14px;
         }
 
-        /* Header */
+        /* ── HEADER ─────────────────────────────────────────────── */
         .header {
-            background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 1.5rem 2rem;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
+            z-index: 10;
         }
 
-        .header-content {
-            max-width: 1400px;
+        .header-inner {
+            max-width: 1060px;
             margin: 0 auto;
+            padding: 0 1.75rem;
+            height: 52px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .logo-text {
-            font-weight: 600;
-            font-size: 1.25rem;
-            background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .stat {
-            text-align: right;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Main Content */
-        .main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .last-updated {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1rem;
         }
 
-        /* Prediction Card */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 1.25rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .card.bullish::before {
-            background: var(--accent-emerald);
-        }
-
-        .card.bearish::before {
-            background: var(--accent-red);
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card.bullish:hover {
-            box-shadow: 0 20px 40px var(--glow-emerald);
-        }
-
-        .card.bearish:hover {
-            box-shadow: 0 20px 40px var(--glow-red);
-        }
-
-        .card-header {
+        .brand {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            flex-shrink: 0;
         }
 
-        .ticker {
-            font-size: 1.5rem;
+        .brand-gem {
+            width: 24px;
+            height: 24px;
+            display: grid;
+            place-items: center;
+            border-radius: 5px;
+            background: var(--navy);
+            color: #fff;
+            font-size: 0.65rem;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
             font-weight: 700;
+            color: var(--navy);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.125rem;
+            font-size: 0.78rem;
+            color: var(--ink-2);
+        }
+
+        .header-sep {
+            width: 1px;
+            height: 16px;
+            background: var(--border);
+        }
+
+        /* VIX chip — clean, no heavy background */
+
+
+        /* ── SUMMARY LINE ────────────────────────────────────────── */
+        .summary-wrap {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 0.875rem 1.75rem 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .summary-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.13em;
+            color: var(--ink-3);
+        }
+
+        .summary-counts {
+            font-size: 0.78rem;
+            color: var(--ink-2);
+        }
+
+        .sim-val {
+            font-weight: 700;
+            color: var(--navy);
             letter-spacing: -0.02em;
         }
 
-        .signal-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        /* ── MAIN ────────────────────────────────────────────────── */
+        .main {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 0.75rem 1.75rem 4rem;
         }
 
-        .signal-badge.bullish {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent-emerald);
-        }
-
-        .signal-badge.bearish {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--accent-red);
-        }
-
-        .confidence-bar-container {
-            margin-bottom: 0.75rem;
-        }
-
-        .confidence-bar-bg {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
+        /* ── SIGNAL TABLE ────────────────────────────────────────── */
+        .signal-table {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 7px;
             overflow: hidden;
         }
 
-        .confidence-bar {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .confidence-bar.bullish {
-            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
-        }
-
-        .confidence-bar.bearish {
-            background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
+        /* Column header row */
+        .thead {
+            display: grid;
+            grid-template-columns: 1fr 100px 90px 100px 100px 80px 70px 70px;
+            padding: 0 1.375rem;
+            height: 33px;
             align-items: center;
+            background: var(--stripe);
+            border-bottom: 1px solid var(--border);
         }
 
-        .confidence-value {
-            font-size: 1.75rem;
+        .th {
+            font-size: 0.58rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-3);
         }
 
-        .confidence-value.bullish {
-            color: var(--accent-emerald);
+        /* Signal row */
+        .sig-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 90px 100px 100px 80px 70px 70px;
+            padding: 1rem 1.375rem;
+            min-height: 64px;
+            align-items: start;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.12s ease;
         }
 
-        .confidence-value.bearish {
-            color: var(--accent-red);
+        .sig-row:last-child { border-bottom: none; }
+        .sig-row:hover { background: var(--stripe); }
+
+        /* Ticker cell */
+        .c-ticker .sym {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            line-height: 1;
         }
 
-        .confidence-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+        .c-ticker .co {
+            font-size: 0.72rem;
+            color: var(--ink-2);
+            margin-top: 0.25rem;
+            font-weight: 400;
+            line-height: 1;
         }
 
-        .stock-name {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-align: right;
-            max-width: 160px;
-            white-space: normal;
-            line-height: 1.3;
+        .c-ticker .rationale {
+            font-size: 0.68rem;
+            color: var(--ink-3);
+            margin-top: 0.5rem;
+            line-height: 1.4;
+            max-width: 380px;
+            padding-left: 0.45rem;
+            border-left: 2px solid var(--border);
         }
 
-        /* High confidence glow animation */
-        .card.high-confidence {
-            animation: pulse 3s ease-in-out infinite;
+        /* Signal tag */
+        .sig-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.15rem;
+            font-size: 0.66rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.22rem 0.5rem;
+            border-radius: 3px;
+        }
+        .sig-tag.l { background: var(--green-bg); color: var(--green); }
+        .sig-tag.s { background: var(--red-bg);   color: var(--red);   }
+
+        /* Confidence cell */
+        .c-conf {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding-right: 1rem;
         }
 
-        @keyframes pulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 rgba(16, 185, 129, 0);
-            }
-
-            50% {
-                box-shadow: 0 0 30px var(--glow-emerald);
-            }
+        .conf-num {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            white-space: nowrap;
         }
+        .conf-num.g { color: var(--green); }
+        .conf-num.r { color: var(--red);   }
 
-        .card.bearish.high-confidence {
-            animation-name: pulse-red;
+        /* Data cells */
+        .data-val {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--ink-2);
         }
+        .data-val.g   { color: var(--green); font-weight: 600; }
+        .data-val.r   { color: var(--red);   font-weight: 600; }
+        .data-val.dim { color: var(--ink-3); }
 
-        @keyframes pulse-red {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 rgba(239, 68, 68, 0);
-            }
-
-            50% {
-                box-shadow: 0 0 30px var(--glow-red);
-            }
-        }
-
-        /* Loading State */
-        .loading {
+        /* Empty / loading */
+        .placeholder {
+            padding: 3.5rem 2rem;
             text-align: center;
-            padding: 4rem;
-            color: var(--text-secondary);
+            color: var(--ink-3);
+            font-size: 0.82rem;
         }
 
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border-subtle);
-            border-top-color: var(--accent-emerald);
+        .loading-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 3.5rem;
+            color: var(--ink-3);
+            font-size: 0.78rem;
+        }
+
+        .spin {
+            width: 15px; height: 15px;
+            border: 2px solid var(--border);
+            border-top-color: var(--navy);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            animation: rotate 0.7s linear infinite;
+        }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+
+        /* ── LEGEND ──────────────────────────────────────────────── */
+        .legend {
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 7px;
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+        .legend-head {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--ink-3);
+            margin-bottom: 1rem;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                padding: 1rem;
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 1.25rem 2rem;
+        }
+
+        .legend-term {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.25rem;
+        }
+
+        .legend-def {
+            font-size: 0.72rem;
+            color: var(--ink-2);
+            line-height: 1.55;
+        }
+
+        /* ── RESPONSIVE ──────────────────────────────────────────── */
+        @media (max-width: 780px) {
+            .thead,
+            .sig-row {
+                grid-template-columns: 1fr 80px auto;
             }
 
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
+            .thead .th:nth-child(n+4),
+            .sig-row > *:nth-child(n+4) { display: none; }
 
-            .header-stats {
-                gap: 1.5rem;
-            }
+            .c-conf { padding-right: 0; }
+            .bar-track { display: none; }
+        }
 
-            .main {
-                padding: 1rem;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 520px) {
+            .header-inner { padding: 0 1rem; }
+            .summary-wrap,
+            .main { padding-left: 1rem; padding-right: 1rem; }
         }
     </style>
 </head>
 
 <body>
+
+    <!-- ── Header ── -->
     <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">◆</div>
-                <span class="logo-text">Emerald Magnetar</span>
-            </div>
-            <div class="header-stats">
-                <div class="stat">
-                    <div class="stat-value" id="bullish-count">-</div>
-                    <div class="stat-label">Bullish</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="bearish-count">-</div>
-                    <div class="stat-label">Bearish</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="avg-confidence">-</div>
-                    <div class="stat-label">Avg Confidence</div>
-                </div>
+        <div class="header-inner">
+            <a class="brand" href="/">
+                <div class="brand-gem">◆</div>
+                <span class="brand-name">Emerald Magnetar</span>
+            </a>
+            <div class="header-right">
+
+                <span id="header-date" style="color:var(--ink-3)">—</span>
             </div>
         </div>
     </header>
 
-    <main class="main">
-        <div class="section-header">
-            <h1 class="section-title">Next Day Trades</h1>
-            <span class="last-updated" id="last-updated">Loading...</span>
+    <!-- ── Summary line ── -->
+    <div class="summary-wrap">
+        <div>
+            <div class="summary-label">Market Bias (High Conviction)</div>
+            <div class="summary-counts" id="signal-counts">--</div>
         </div>
+    </div>
 
-        <div id="cards-container" class="cards-grid">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Loading predictions...</p>
+    <!-- ── Main ── -->
+    <main class="main">
+
+        <!-- Signal table -->
+        <div class="signal-table" id="signal-table">
+            <div class="loading-row">
+                <div class="spin"></div>
+                Loading signals…
             </div>
         </div>
+
+        <!-- Legend — hidden until data loads -->
+        <div class="legend" id="legend" style="display:none">
+            <div class="legend-head">How to read this page</div>
+            <div class="legend-grid">
+                <div>
+                    <div class="legend-term">Ticker &amp; Company</div>
+                    <div class="legend-def">The stock code (e.g. MSFT) and the company behind it. The exchange shows where it trades — NASDAQ, NYSE, or ASX.</div>
+                </div>
+                <div>
+                    <div class="legend-term">Signal — Long or Short</div>
+                    <div class="legend-def">The model's prediction for <em>tomorrow</em>. ↑ Long = expects price to rise. ↓ Short = expects price to fall. Only signals at 60%+ confidence appear here.</div>
+                </div>
+                <div>
+                    <div class="legend-term">Signal &amp; Confidence</div>
+                    <div class="legend-def">↑ Long indicates the model expects positive returns. Confidence is a <b>Platt-calibrated probability</b> — an ensemble mathematical representation of historical win rates.</div>
+                </div>
+                <div>
+                    <div class="legend-term">Size (Half-Kelly)</div>
+                    <div class="legend-def"><b>The Kelly Criterion</b> is a mathematical formula that calculates optimal bet size based on win probability. "Half-Kelly" divides this by 2 (an institutional standard) to aggressively minimize portfolio drawdowns while capturing upside edge.</div>
+                </div>
+                <div>
+                    <div class="legend-term">Signal Streak</div>
+                    <div class="legend-def">How many trading days in a row the model has made the same call. A 🔥 8-day streak is far more reliable than a brand new 1-day signal.</div>
+                </div>
+                <div>
+                    <div class="legend-term">Trend (vs 10d Baseline)</div>
+                    <div class="legend-def">Is the model getting more or less confident? ↑ means conviction is building versus the 10-day institutional baseline. ↓ means it's fading.</div>
+                </div>
+                <div>
+                    <div class="legend-term">10-Day Average</div>
+                    <div class="legend-def">The "Fortnightly Baseline." A 10-day window is the professional standard for filtering out daily noise and seeing the true structural conviction of the model.</div>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
     <script>
-        // Stock metadata for display names (with exchange info)
-        const stockNames = {
-            // US Stocks - Trade on NYSE/NASDAQ
-            'AAPL': 'Apple · NASDAQ',
-            'MSFT': 'Microsoft · NASDAQ',
-            'GOOGL': 'Alphabet · NASDAQ',
-            'AMZN': 'Amazon · NASDAQ',
-            'META': 'Meta · NASDAQ',
-            'TSLA': 'Tesla · NASDAQ',
-            'NVDA': 'NVIDIA · NASDAQ',
-            'NFLX': 'Netflix · NASDAQ',
-            'AMD': 'AMD · NASDAQ',
-            'CRM': 'Salesforce · NYSE',
-            // US ETFs - Trade on NYSE Arca
-            'GLD': 'Gold ETF · NYSE',
-            'SLV': 'Silver ETF · NYSE',
-            'SPY': 'S&P 500 ETF · NYSE',
-            'QQQ': 'Nasdaq 100 ETF · NASDAQ',
-            'VTI': 'Total US Market · NYSE',
-            'IWM': 'Small Cap 2000 · NYSE',
-            'VOO': 'Vanguard S&P 500 · NYSE',
-            // Australian Stocks - Trade on ASX
-            'BHP.AX': 'BHP Mining · ASX',
-            'CBA.AX': 'CommBank · ASX',
-            'CSL.AX': 'CSL Biotech · ASX',
-            'NAB.AX': 'NAB Bank · ASX',
-            'WBC.AX': 'Westpac · ASX',
-            'ANZ.AX': 'ANZ Bank · ASX',
-            'WES.AX': 'Wesfarmers · ASX',
-            'WOW.AX': 'Woolworths · ASX',
-            'MQG.AX': 'Macquarie · ASX',
-            'RIO.AX': 'Rio Tinto · ASX',
-            'FMG.AX': 'Fortescue · ASX',
-            'TLS.AX': 'Telstra · ASX'
+        const CO = {
+            'AAPL':'Apple','MSFT':'Microsoft','GOOGL':'Alphabet','AMZN':'Amazon',
+            'META':'Meta Platforms','TSLA':'Tesla','NVDA':'NVIDIA','NFLX':'Netflix',
+            'AMD':'Advanced Micro Devices','CRM':'Salesforce','GLD':'Gold ETF',
+            'SLV':'Silver ETF','SPY':'S&P 500 ETF','QQQ':'Nasdaq 100 ETF',
+            'VTI':'Total Market ETF','IWM':'Small Cap ETF','VOO':'Vanguard S&P 500 ETF',
+            'BHP.AX':'BHP Group','CBA.AX':'Commonwealth Bank','CSL.AX':'CSL Limited',
+            'NAB.AX':'National Australia Bank','WBC.AX':'Westpac Banking','ANZ.AX':'ANZ Banking',
+            'V':'Visa Inc.','VWO':'Vanguard Emerging Mkts','CVX':'Chevron Corp',
+            'WES.AX':'Wesfarmers','WOW.AX':'Woolworths Group','MQG.AX':'Macquarie Group',
+            'RIO.AX':'Rio Tinto','FMG.AX':'Fortescue','TLS.AX':'Telstra',
+            'BRK-B':'Berkshire Hathaway','JPM':'JPMorgan Chase','UNH':'UnitedHealth Group',
+            'JNJ':'Johnson & Johnson','XOM':'Exxon Mobil','PG':'Procter & Gamble',
+            'MA':'Mastercard','HD':'Home Depot','ABBV':'AbbVie',
+            'KO':'Coca-Cola','PEP':'PepsiCo','COST':'Costco',
+            'MRK':'Merck & Co','WMT':'Walmart','AVGO':'Broadcom',
+            'DIS':'Walt Disney','VEA':'Vanguard Dev Markets',
+            'EFA':'iShares MSCI EAFE','TLT':'iShares 20+ Yr Treasury',
+            'VNQ':'Vanguard Real Estate','XLF':'Financial Select ETF',
+            'XLE':'Energy Select ETF','XLK':'Tech Select ETF'
         };
 
-        async function fetchPredictions() {
-            try {
-                const response = await fetch('/api/predictions');
-                const data = await response.json();
-                return data.predictions || [];
-            } catch (error) {
-                console.error('Failed to fetch predictions:', error);
-                return [];
-            }
+        const EX = {
+            'AAPL':'NASDAQ','MSFT':'NASDAQ','GOOGL':'NASDAQ','AMZN':'NASDAQ',
+            'META':'NASDAQ','TSLA':'NASDAQ','NVDA':'NASDAQ','NFLX':'NASDAQ',
+            'AMD':'NASDAQ','CRM':'NYSE','GLD':'NYSE','SLV':'NYSE','SPY':'NYSE',
+            'QQQ':'NASDAQ','VTI':'NYSE','IWM':'NYSE','VOO':'NYSE',
+            'BHP.AX':'ASX','CBA.AX':'ASX','CSL.AX':'ASX',
+            'NAB.AX':'ASX','WBC.AX':'ASX','ANZ.AX':'ASX',
+            'V':'NYSE','VWO':'NYSE','CVX':'NYSE',
+            'WES.AX':'ASX','WOW.AX':'ASX','MQG.AX':'ASX','RIO.AX':'ASX','FMG.AX':'ASX','TLS.AX':'ASX',
+            'BRK-B':'NYSE','JPM':'NYSE','UNH':'NYSE','JNJ':'NYSE','XOM':'NYSE',
+            'PG':'NYSE','MA':'NYSE','HD':'NYSE','ABBV':'NYSE','KO':'NYSE',
+            'PEP':'NASDAQ','COST':'NASDAQ','MRK':'NYSE','WMT':'NYSE','AVGO':'NASDAQ',
+            'DIS':'NYSE','VEA':'NYSE','EFA':'NYSE','TLT':'NASDAQ','VNQ':'NYSE',
+            'XLF':'NYSE','XLE':'NYSE','XLK':'NYSE'
+        };
+
+        async function refresh() {
+            const [p, i, s] = await Promise.all([
+                fetch('/api/predictions').then(r => r.json()).catch(() => ({})),
+                fetch('/api/signal-intelligence').then(r => r.json()).catch(() => ({})),
+                fetch('/api/simulation').then(r => r.json()).catch(() => ({}))
+            ]);
+            paintTable(p.predictions || [], i.intel || {});
+            paintSimulation(s.simulation || {});
         }
 
-        function renderCards(predictions) {
-            const container = document.getElementById('cards-container');
+        function paintSimulation(sim) {
+            const simEl = document.getElementById('sim-pnl');
+            if (!sim || !sim.total_return_pct) {
+                simEl.innerHTML = `Not enough data to run simulation.`;
+                return;
+            }
+            
+            const pnlColor = sim.total_return_pct >= 0 ? 'var(--green-bd)' : 'var(--red-bd)';
+            const sign = sim.total_return_pct >= 0 ? '+' : '';
+            
+            simEl.innerHTML = `
+                <span class="sim-val" style="color: ${pnlColor}">${sign}${sim.total_return_pct}% Total Return</span> 
+                <span class="dim" style="margin-left: 0.5rem;">($${sim.initial_capital.toLocaleString()} → $${sim.final_capital.toLocaleString()})</span>
+            `;
+        }
 
-            if (!predictions.length) {
-                container.innerHTML = `
-                    <div class="loading">
-                        <p>No predictions available. Run the pipeline first.</p>
-                    </div>
-                `;
+
+
+        function paintTable(preds, intel) {
+            const table  = document.getElementById('signal-table');
+            const legend = document.getElementById('legend');
+            const counts = document.getElementById('signal-counts');
+
+            if (!preds.length) {
+                table.innerHTML = `<div class="placeholder">No predictions yet — run <code>python scripts/pipeline.py</code> to generate signals.</div>`;
+                counts.textContent = '—';
                 return;
             }
 
-            // Sort by confidence (highest first)
-            predictions.sort((a, b) => b.confidence - a.confidence);
+            preds.sort((a, b) => b.confidence - a.confidence);
+            const top  = preds.filter(p => p.confidence >= 0.60);
+            const bulls = top.filter(p => p.prediction === 1).length;
+            const bears = top.filter(p => p.prediction === 0).length;
 
-            // FILTER: Only show high-confidence signals (>60%)
-            const MIN_CONFIDENCE = 0.60;
-            const topSignals = predictions.filter(p => p.confidence >= MIN_CONFIDENCE);
-
-            // Update stats (for filtered signals only)
-            const bullish = topSignals.filter(p => p.prediction === 1);
-            const bearish = topSignals.filter(p => p.prediction === 0);
-            const avgConf = topSignals.length > 0
-                ? topSignals.reduce((sum, p) => sum + p.confidence, 0) / topSignals.length
-                : 0;
-
-            document.getElementById('bullish-count').textContent = bullish.length;
-            document.getElementById('bearish-count').textContent = bearish.length;
-            document.getElementById('avg-confidence').textContent = avgConf > 0 ? (avgConf * 100).toFixed(0) + '%' : '-';
-
-            // Update date
-            if (predictions[0]?.created_at) {
-                const date = new Date(predictions[0].created_at);
-                document.getElementById('last-updated').textContent =
-                    'Predictions from ' + date.toLocaleDateString('en-AU', {
-                        weekday: 'long',
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
-                    });
+            // Header date
+            if (preds[0]?.created_at) {
+                const d = new Date(preds[0].created_at);
+                document.getElementById('header-date').textContent =
+                    d.toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
             }
 
-            // Render cards for TOP SIGNALS ONLY
-            if (topSignals.length === 0) {
-                container.innerHTML = `
-                    <div class="loading">
-                        <p>No high-confidence signals today. Check back after market close.</p>
-                    </div>
-                `;
+            if (!top.length) {
+                table.innerHTML = `<div class="placeholder">No signals above 60% confidence today. Check back after market close.</div>`;
+                counts.textContent = 'None above threshold';
                 return;
             }
 
-            container.innerHTML = topSignals.map(pred => {
-                const isBullish = pred.prediction === 1;
-                const signal = isBullish ? 'bullish' : 'bearish';
-                const confidence = pred.confidence;
-                const isHighConf = confidence >= 0.60;
-                const name = stockNames[pred.ticker] || pred.ticker;
+            counts.textContent = `${bulls} long · ${bears} short`;
+            legend.style.display = '';
 
-                return `
-                    <div class="card ${signal} ${isHighConf ? 'high-confidence' : ''}">
-                        <div class="card-header">
-                            <span class="ticker">${pred.ticker}</span>
-                            <span class="signal-badge ${signal}">${isBullish ? '↑ Long' : '↓ Short'}</span>
-                        </div>
-                        <div class="confidence-bar-container">
-                            <div class="confidence-bar-bg">
-                                <div class="confidence-bar ${signal}" style="width: ${confidence * 100}%"></div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div>
-                                <div class="confidence-value ${signal}">${(confidence * 100).toFixed(1)}%</div>
-                                <div class="confidence-label">Confidence</div>
-                            </div>
-                            <div class="stock-name">${name}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            table.innerHTML =
+                `<div class="thead">
+                    <div class="th">Ticker</div>
+                    <div class="th">Signal</div>
+                    <div class="th">Conf</div>
+                    <div class="th">Size (Half-Kelly)</div>
+                    <div class="th">Streak</div>
+                    <div class="th">Trend</div>
+                    <div class="th">5D Avg</div>
+                    <div class="th">10D Avg</div>
+                </div>`
+                + top.map(p => row(p, intel)).join('');
         }
 
-        // Initialize
-        fetchPredictions().then(renderCards);
+        function row(p, intel) {
+            const bull = p.prediction === 1;
+            const gc   = bull ? 'g' : 'r';
+            const pct  = (p.confidence * 100).toFixed(1);
+            const name = CO[p.ticker] || p.ticker;
+            const ex   = EX[p.ticker] ? ' · ' + EX[p.ticker] : '';
+            const d    = intel[p.ticker];
 
-        // Refresh every 60 seconds
-        setInterval(() => fetchPredictions().then(renderCards), 60000);
+            let streak = '<span class="data-val dim">—</span>';
+            let trend  = '<span class="data-val dim">—</span>';
+            let avg5   = '<span class="data-val dim">—</span>';
+            let avg10  = '<span class="data-val dim">—</span>';
+
+            if (d) {
+                const sa = Math.abs(d.streak);
+                const sb = d.streak > 0;
+                streak = `<span class="data-val ${sb ? 'g' : 'r'}">${sb ? '🔥' : '❄'}&thinsp;${sa} days</span>`;
+
+                const ti = { rising: '↑', falling: '↓', flat: '→' }[d.conf_trend] || '→';
+                const tc = { rising: 'g', falling: 'r', flat: 'dim' }[d.conf_trend] || 'dim';
+                const dt = d.conf_delta > 0 ? `+${d.conf_delta}%` : `${d.conf_delta}%`;
+                trend = `<span class="data-val ${tc}">${ti}&thinsp;${dt}</span>`;
+
+                avg5  = `<span class="data-val dim">${d.conf_5d_avg}%</span>`;
+                avg10 = `<span class="data-val dim">${d.conf_10d_avg}%</span>`;
+            }
+
+            let rat_html = '';
+            if (p.rationale) {
+                let ai_html = '';
+                if (p.llm_rationale) {
+                    const ai_color = p.llm_sentiment >= 0.5 ? 'var(--green)' : 'var(--red)';
+                    const ai_label = p.llm_sentiment >= 0.5 ? 'Bullish Consensus' : 'Bearish Veto';
+                    ai_html = `
+                        <div style="margin-top: 0.5rem; border-left: 2px solid #8e62f0; padding-left: 0.45rem;">
+                            <div style="font-size: 0.55rem; font-weight: 700; color: #8e62f0; text-transform: uppercase;">
+                                Gemini Pro <span style="font-weight: 400; opacity: 0.7;">· ${p.llm_sentiment} Score (${ai_label})</span>
+                            </div>
+                            <div style="font-style: italic;">${p.llm_rationale}</div>
+                        </div>
+                    `;
+                }
+                rat_html = `<div class="rationale">
+                    <b>Quant:</b> ${p.rationale}
+                    ${ai_html}
+                </div>`;
+            }
+
+            return `
+            <div class="sig-row">
+                <div class="c-ticker">
+                    <div class="sym">${p.ticker}</div>
+                    <div class="co">${name}${ex}</div>
+                    ${rat_html}
+                </div>
+                <div><span class="sig-tag ${bull ? 'l' : 's'}">${bull ? '↑ Long' : '↓ Short'}</span></div>
+                <div class="c-conf">
+                    <span class="conf-num ${gc}">${pct}%</span>
+                </div>
+                <div><span class="data-val" style="color: var(--amber-bd); font-weight: 700;">${p.kelly_size || 0}%</span></div>
+                <div>${streak}</div>
+                <div>${trend}</div>
+                <div>${avg5}</div>
+                <div>${avg10}</div>
+            </div>`;
+        }
+
+        refresh();
+        setInterval(refresh, 60_000);
     </script>
 </body>
-
 </html>

@@ -14,6 +14,14 @@ from flask_cors import CORS
 app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
+# Lazy-import the DB class (avoids import errors if src path differs)
+def _get_db_class():
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from src.db import Database
+    return Database()
+
 @app.route('/api/metadata')
 def get_metadata():
     """Serve the pre-calculated metadata with robust path finding."""
@@ -75,17 +83,32 @@ def get_predictions():
         cursor = conn.cursor()
         
         # Get latest predictions from 'preds' table
-        # Columns: index, date, ticker, y_true, y_prob, y_pred
+        # Columns: index, date, ticker, y_true, y_prob, y_pred, rationale
         # Show predictions from the most recent date available
         cursor.execute('''
-            SELECT ticker, y_pred as prediction, y_prob as confidence, date as created_at
-            FROM preds
-            WHERE date = (SELECT MAX(date) FROM preds)
-            ORDER BY confidence DESC
+            SELECT p1.ticker, p1.y_pred as prediction, p1.y_prob as confidence, 
+                   p1.date as created_at, p1.rationale, p1.llm_sentiment, p1.llm_rationale
+            FROM preds p1
+            INNER JOIN (
+                SELECT ticker, MAX(date) as max_date
+                FROM preds
+                GROUP BY ticker
+            ) p2 ON p1.ticker = p2.ticker AND p1.date = p2.max_date
+            ORDER BY p1.y_prob DESC
         ''')
         predictions = cursor.fetchall()
         conn.close()
         
+        # Calculate Kelly allocations dynamically
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from src.agent.portfolio import get_recommended_position
+        
+        for p in predictions:
+            is_long = bool(p['prediction'] == 1)
+            p['kelly_size'] = get_recommended_position(p['confidence'], is_long)
+            
         return jsonify({'predictions': predictions, 'status': 'ok'})
     except Exception as e:
         return jsonify({'predictions': [], 'status': 'error', 'message': str(e)})
@@ -128,6 +151,28 @@ def get_metrics():
         })
     except Exception as e:
         return jsonify({'metrics': [], 'summary': {}, 'status': 'error', 'message': str(e)})
+
+
+@app.route('/api/simulation')
+def get_simulation():
+    """Get theoretical P&L using Kelly Simulator"""
+    try:
+        import pandas as pd
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from src.agent.portfolio import simulate_portfolio_pnl
+        
+        conn = get_db()
+        # Read the predictions table into a Pandas DataFrame for the simulator
+        preds_df = pd.read_sql_query("SELECT * FROM preds ORDER BY date ASC", conn)
+        conn.close()
+        
+        sim_results = simulate_portfolio_pnl(preds_df)
+        
+        return jsonify({'simulation': sim_results, 'status': 'ok'})
+    except Exception as e:
+        return jsonify({'simulation': {}, 'status': 'error', 'message': str(e)})
 
 
 @app.route('/api/trades')
@@ -243,6 +288,28 @@ def get_signal_details(ticker):
         return jsonify({'status': 'error', 'message': str(e)})
 
 
+@app.route('/api/signal-intelligence')
+def get_signal_intelligence():
+    """Return streak, confidence trend and 5-day avg for every ticker."""
+    try:
+        db = _get_db_class()
+        intel = db.get_signal_intelligence()
+        return jsonify({'intel': intel, 'status': 'ok'})
+    except Exception as e:
+        return jsonify({'intel': {}, 'status': 'error', 'message': str(e)})
+
+
+@app.route('/api/vix-regime')
+def get_vix_regime():
+    """Return the current VIX market regime."""
+    try:
+        db = _get_db_class()
+        regime = db.get_vix_regime()
+        return jsonify({'regime': regime, 'status': 'ok'})
+    except Exception as e:
+        return jsonify({'regime': {}, 'status': 'error', 'message': str(e)})
+
+
 @app.route('/api/health')
 def health():
     """Health check endpoint"""
@@ -263,4 +330,4 @@ if __name__ == '__main__':
     print(f"Database path: {DB_PATH}")
     print(f"Starting server at http://localhost:{port}")
     print("=" * 50)
-    app.run(debug=True, port=port)
+    app.run(host='0.0.0.0', port=port, debug=False)

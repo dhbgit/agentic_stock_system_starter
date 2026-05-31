@@ -29,6 +29,7 @@ tickers:
 # FRED API Key
 # Get your own free API key at https://fred.stlouisfed.org/docs/api/api_key.html
 fred_api_key: "6704e1907a79067b1ecc78cbd776f9f7"
+gemini_api_key: "AIzaSyAT6nLZEKnKwiA32wSNxFnmQ_W2Y96y5JU"
 
 # Macro series from FRED
 macro_series:

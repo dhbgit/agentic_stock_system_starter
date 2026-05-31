@@ -18,14 +18,21 @@ from datetime import datetime, timedelta
 from .data import load_prices, merge_macro, load_macro_csv
 from .features import add_tech_features
 from .labeler import make_labels
-from .model import train_rf, train_lgbm, metrics_classifier, portfolio_metrics
+from .model import train_ensemble, metrics_classifier, portfolio_metrics
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "artifacts", "agent.db")
 
-DEFAULT_PARAMS = {
+DEFAULT_RF_PARAMS = {
     "n_estimators": 200,
     "max_depth": 8,
     "min_samples_leaf": 10,
+    "class_weight": "balanced",
+}
+DEFAULT_LGBM_PARAMS = {
+    "n_estimators": 100,
+    "max_depth": 6,
+    "learning_rate": 0.05,
+    "num_leaves": 31,
     "class_weight": "balanced",
 }
 
@@ -37,7 +44,6 @@ DEFAULT_PARAMS = {
 def walkforward_symbol(
     ticker, start, end,
     label_horizon=1,
-    model_type="rf",
     model_params=None,
     refit_every_days=21,
     macros=None,
@@ -46,8 +52,7 @@ def walkforward_symbol(
     transaction_costs=0.0,
 ):
     """
-    Walk-forward evaluation for a single ticker.
-    Returns (pred_df, metrics_dict) — used by tune.py and evaluation scripts.
+    Walk-forward evaluation for a single ticker using the Ensemble.
     """
     px = load_prices(ticker, start, end)
     if macros:
@@ -73,13 +78,9 @@ def walkforward_symbol(
             (dt - last_refit) >= pd.Timedelta(days=refit_every_days)
         )
         if needs_refit:
-            mp = model_params or DEFAULT_PARAMS
-            if model_type == "rf":
-                model = train_rf(X.loc[idx_train], y.loc[idx_train], mp)
-            elif model_type == "lgbm":
-                model = train_lgbm(X.loc[idx_train], y.loc[idx_train], mp)
-            else:
-                raise ValueError(f"Unknown model type: {model_type}")
+            rfp = model_params.get("rf", DEFAULT_RF_PARAMS) if model_params else DEFAULT_RF_PARAMS
+            lp  = model_params.get("lgbm", DEFAULT_LGBM_PARAMS) if model_params else DEFAULT_LGBM_PARAMS
+            model = train_ensemble(X.loc[idx_train], y.loc[idx_train], rfp, lp)
             last_refit = dt
 
         p = model.predict_proba(X.loc[idx_test])[:, 1][0]
@@ -103,8 +104,9 @@ def walkforward_symbol(
 
 def _cache_paths(ticker, cache_dir):
     os.makedirs(cache_dir, exist_ok=True)
-    model_path = os.path.join(cache_dir, f"{ticker}_rf.pkl")
-    meta_path = os.path.join(cache_dir, f"{ticker}_rf_meta.json")
+    # Ensemble cache name
+    model_path = os.path.join(cache_dir, f"{ticker}_ensemble.pkl")
+    meta_path = os.path.join(cache_dir, f"{ticker}_ensemble_meta.json")
     return model_path, meta_path
 
 
@@ -126,8 +128,7 @@ def train_and_save_model(ticker, start="2020-01-01", end=None,
                           model_params=None, label_horizon=1,
                           cache_dir="artifacts/models"):
     """
-    Train an RF model on all available data and save it to disk.
-    Returns (model, X, y) so the caller can also generate today's prediction.
+    Train an Ensemble model on all available data and save it to disk.
     """
     px = load_prices(ticker, start, end)
     feat = add_tech_features(px)
@@ -138,8 +139,10 @@ def train_and_save_model(ticker, start="2020-01-01", end=None,
     X_train = X.iloc[:-label_horizon]
     y_train = y.iloc[:-label_horizon]
 
-    mp = model_params or DEFAULT_PARAMS
-    model = train_rf(X_train, y_train, mp)
+    rfp = model_params.get("rf", DEFAULT_RF_PARAMS) if model_params else DEFAULT_RF_PARAMS
+    lp  = model_params.get("lgbm", DEFAULT_LGBM_PARAMS) if model_params else DEFAULT_LGBM_PARAMS
+    
+    model = train_ensemble(X_train, y_train, rfp, lp)
 
     # Compute recent metrics (last 60 trading days held out)
     window = min(60, len(X_train) // 2)
@@ -171,15 +174,7 @@ def predict_latest(ticker, start="2020-01-01", end=None,
                    cache_dir="artifacts/models", refit_every_days=21,
                    force_retrain=False):
     """
-    Main daily prediction function.
-
-    - If a fresh cached model exists: load it and predict the latest row (~fast).
-    - If model is stale or missing: retrain, cache, then predict.
-
-    Returns:
-        pred  : dict with date, ticker, y_true, y_prob, y_pred
-        metrics: dict with auc, acc, f1 (None if not retrained)
-        retrained: bool
+    Main daily prediction function using Ensemble + Calibration.
     """
     retrained = False
     metrics = {"auc": None, "acc": None, "f1": None}
@@ -193,22 +188,30 @@ def predict_latest(ticker, start="2020-01-01", end=None,
         )
         retrained = True
     else:
-        # Load cached model, download recent data for the last feature row
+        # Load cached model
         model_path, _ = _cache_paths(ticker, cache_dir)
         model = joblib.load(model_path)
-        # Only need enough history for the longest indicator (~250 days)
+        
+        # Download recent data for the last feature row
         recent_start = (datetime.now() - timedelta(days=400)).strftime("%Y-%m-%d")
         px = load_prices(ticker, recent_start, end)
         feat = add_tech_features(px)
         y, _ = make_labels(feat, horizon_days=label_horizon)
-        X = feat.loc[y.index].copy()
+        # BUG FIX: don't restrict X to y.index here, because y.dropna() mathematically deletes 
+        # the absolute latest day (since tomorrow hasn't happened yet, so y is NaN).
+        X = feat.copy()
 
-    # Predict the latest available row
+    # Predict the absolute latest available row from Yahoo Finance
     latest_X = X.iloc[[-1]]
     latest_date = X.index[-1]
     y_prob = float(model.predict_proba(latest_X)[:, 1][0])
     y_pred = int(y_prob >= 0.55)
-    y_true = int(y.iloc[-1]) if len(y) > 0 else -1
+    
+    # If the latest date has a label true, fetch it. Otherwise, it's unknown (-1)
+    if latest_date in y.index:
+        y_true = int(y.loc[latest_date])
+    else:
+        y_true = -1
 
     pred = {
         "date": latest_date,
